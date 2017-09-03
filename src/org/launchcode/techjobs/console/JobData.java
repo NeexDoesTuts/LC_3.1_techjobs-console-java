@@ -29,18 +29,18 @@ public class JobData {
      * @param field The column to retrieve values from
      * @return List of all of the values of the given field
      */
-    public static ArrayList<String> findAll(String field) {
-
+    public static ArrayList<String> findAll(String field) { // field -> column name
+        // use in List functionality
         // load data, if not already loaded
         loadData();
 
-        ArrayList<String> values = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>(); // result keeper
 
         for (HashMap<String, String> row : allJobs) {
             String aValue = row.get(field);
 
-            if (!values.contains(aValue)) {
-                values.add(aValue);
+            if (!values.contains(aValue)) { // if it does not contain such field yet, add it,
+                values.add(aValue);         // ends up with a list of unique whichever column data is requested
             }
         }
 
@@ -48,7 +48,7 @@ public class JobData {
     }
 
     public static ArrayList<HashMap<String, String>> findAll() {
-
+        // List functionality
         // load data, if not already loaded
         loadData();
 
@@ -75,9 +75,9 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) { // grab a row with one job
 
-            String aValue = row.get(column); // grab the key:value (row:column) pair that reflects the searched column
+            String aValue = row.get(column).toLowerCase(); // grab the key:value (row:column) pair that reflects the searched column
 
-            if (aValue.contains(value)) { // compare to the value we want to be in this column
+            if (aValue.contains(value.toLowerCase())) { // compare to the value we want to be in this column
                 jobs.add(row);
             }
         }
@@ -97,7 +97,7 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) { // grab one row
             // search for value in every column of it
             for (String column : row.values()) {
-                if (column.contains(value)) {
+                if (column.toLowerCase().contains(value.toLowerCase())) {
                     jobs.add(row);
                     break;
                 }
