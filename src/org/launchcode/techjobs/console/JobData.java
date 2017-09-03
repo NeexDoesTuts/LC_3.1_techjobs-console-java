@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -72,16 +73,42 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
+        for (HashMap<String, String> row : allJobs) { // grab a row with one job
 
-            String aValue = row.get(column);
+            String aValue = row.get(column); // grab the key:value (row:column) pair that reflects the searched column
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value)) { // compare to the value we want to be in this column
                 jobs.add(row);
             }
         }
 
         return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        // loop inside allJobs for the value variable
+        // if found add it to a new HashMap and stop iterating through other fields
+        // make it case-insensitive
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>(); // store filtered jobs here
+
+        for (HashMap<String, String> row : allJobs) { // grab one row
+            // search for value in every column of it
+            for (String column : row.values()) {
+                if (column.contains(value)) {
+                    jobs.add(row);
+                    break;
+                }
+            }
+        }
+
+        return jobs;
+
+
+
+
     }
 
     /**
